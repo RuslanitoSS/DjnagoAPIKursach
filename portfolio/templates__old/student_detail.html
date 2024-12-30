@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Студент: {{ student.first_name }} {{ student.last_name }}</title>
+</head>
+<body>
+    <h1>{{ student.first_name }} {{ student.last_name }}</h1>
+    <p>ВУЗ: {{ student.university }}</p>
+    <p>Факультет: {{ student.faculty }}</p>
+    <p>Курс: {{ student.course_number }}</p>
+    <h2>Проекты</h2>
+    <ul>
+        {% for project in student.projects.all %}
+        <li>{{ project.title }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Мероприятия</h2>
+    <ul>
+        {% for event in student.events.all %}
+        <li>{{ event.title }} — {{ event.address }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

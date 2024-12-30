@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список студентов</title>
+</head>
+<body>
+    {{students}}
+    <h1>Список студентов</h1>
+    <form action="" method="get">
+        <input type="text" name="q" placeholder="Поиск по имени, email, университету или факультету">
+        <button type="submit">Поиск</button>
+    </form>
+    <ul>
+        {% for student in students %}
+        <li>
+            <a href="{% url 'student_detail' student.id %}">
+                <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="25" cy="25" r="25" fill="gray"/>
+                </svg>
+                {{ student.first_name }} {{ student.last_name }} ({{ student.university }})
+            </a>
+            <ul>
+                <li>Проекты:
+                    <ul>
+                        {% for project in student.projects.all %}
+                            <li>{{ project.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li>Мероприятия:
+                    <ul>
+                        {% for event in student.events.all %}
+                            <li>{{ event.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+    <div>
+        {% if students.has_previous %}
+            <a href="?page=1">Первая</a>
+            <a href="?page={{ students.previous_page_number }}">Предыдущая</a>
+        {% endif %}
+        <span>Страница {{ students. }} из {{ students.paginator.num_pages }}</span>
+        {% if students.next %}
+            <a href="{{students.next}}">Следующая</a>
+            <a href="?page={{ students.paginator.num_pages }}">Последняя</a>
+        {% endif %}
+    </div>
+</body>
+</html>
