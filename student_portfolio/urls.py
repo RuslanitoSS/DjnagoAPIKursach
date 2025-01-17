@@ -13,7 +13,6 @@ router.register(r'events', EventViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-
 ]
     
    
